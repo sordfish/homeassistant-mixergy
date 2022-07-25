@@ -252,6 +252,11 @@ class Tank:
         return True
 
     @property
+    def voltage(self):
+        return self._voltage
+
+
+    @property
     def hot_water_temperature(self):
         return self._hot_water_temperature
 
