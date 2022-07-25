@@ -150,8 +150,7 @@ class Tank:
 
             tank_url = tank["_links"]["self"]["href"]
             self.firmwareVersion = tank["firmwareVersion"]
-            self.modelCode = tank["tankModelCode"]
-
+            
             async with session.get(tank_url, headers=headers) as resp:
 
                 if resp.status != 200:
@@ -164,6 +163,7 @@ class Tank:
 
                 self._latest_measurement_url = tank_url_result["_links"]["latest_measurement"]["href"]
                 self._control_url = tank_url_result["_links"]["control"]["href"]
+                self.modelCode = tank_url_result["tankModelCode"]
 
                 _LOGGER.debug("Measurement URL is %s", self._latest_measurement_url)
                 _LOGGER.debug("Control URL is %s", self._control_url)
