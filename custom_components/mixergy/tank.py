@@ -26,6 +26,7 @@ class Tank:
         self._loop = asyncio.get_event_loop()
         self._hot_water_temperature = -1
         self._coldest_water_temperature = -1
+        self._voltage = -1
         self._charge = -1
         self._eletric_heat = False
         self._indriect_heat = False
@@ -186,6 +187,8 @@ class Tank:
 
             self._hot_water_temperature = tank_result["topTemperature"]
             self._coldest_water_temperature = tank_result["bottomTemperature"]
+
+            self.voltage = tank_result["voltage"]
 
             new_charge = tank_result["charge"]
 
