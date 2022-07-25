@@ -1,7 +1,7 @@
 import logging
 import voluptuous as vol
 from datetime import timedelta
-from homeassistant.const import DEVICE_CLASS_ENERGY, PERCENTAGE, TEMP_CELSIUS, STATE_OFF, VOLT
+from homeassistant.const import DEVICE_CLASS_ENERGY, PERCENTAGE, TEMP_CELSIUS, STATE_OFF, ELECTRIC_POTENTIAL_VOLT
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.components.binary_sensor import BinarySensorEntity, DEVICE_CLASS_HEAT
 from homeassistant.components.sensor import DEVICE_CLASS_TEMPERATURE, DEVICE_CLASS_VOLTAGE
@@ -142,7 +142,7 @@ class Voltage(SensorBase):
 
     @property
     def unit_of_measurement(self):
-        return VOLT
+        return ELECTRIC_POTENTIAL_VOLT
 
     @property
     def name(self):
