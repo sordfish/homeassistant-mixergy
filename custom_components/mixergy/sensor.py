@@ -1,10 +1,10 @@
 import logging
 import voluptuous as vol
 from datetime import timedelta
-from homeassistant.const import DEVICE_CLASS_ENERGY, PERCENTAGE, TEMP_CELSIUS, STATE_OFF
+from homeassistant.const import DEVICE_CLASS_ENERGY, PERCENTAGE, TEMP_CELSIUS, STATE_OFF, VOLTAGE
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.components.binary_sensor import BinarySensorEntity, DEVICE_CLASS_HEAT
-from homeassistant.components.sensor import DEVICE_CLASS_TEMPERATURE
+from homeassistant.components.sensor import DEVICE_CLASS_TEMPERATURE, DEVICE_CLASS_VOLTAGE
 from .const import DOMAIN
 from .tank import Tank
 from homeassistant.helpers.update_coordinator import (
@@ -31,6 +31,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
     new_entities = []
 
+    new_entities.append(Voltage(coordinator, tank))
     new_entities.append(HotWaterTemperatureSensor(coordinator, tank))
     new_entities.append(ColdestWaterTemperatureSensor(coordinator, tank))
     new_entities.append(ChargeSensor(coordinator, tank))
@@ -123,6 +124,30 @@ class ChargeSensor(SensorBase):
     @property
     def name(self):
           return f"Current Charge"
+
+class Voltage(SensorBase):
+
+    device_class = DEVICE_CLASS_VOLTAGE
+
+    def __init__(self, coordinator, tank:Tank):
+        super().__init__( coordinator, tank)
+
+    @property
+    def unique_id(self):
+        return f"mixergy_{self._tank.serial_number}_voltage"
+
+    @property
+    def state(self):
+        return self._tank.voltage
+
+    @property
+    def unit_of_measurement(self):
+        return VOLTAGE
+
+    @property
+    def name(self):
+        return f"Voltage"
+
 
 class HotWaterTemperatureSensor(SensorBase):
 
