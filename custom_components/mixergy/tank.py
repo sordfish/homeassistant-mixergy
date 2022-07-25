@@ -188,7 +188,7 @@ class Tank:
             self._hot_water_temperature = tank_result["topTemperature"]
             self._coldest_water_temperature = tank_result["bottomTemperature"]
 
-            self.voltage = tank_result["voltage"]
+            self._voltage = tank_result["voltage"]
 
             new_charge = tank_result["charge"]
 
